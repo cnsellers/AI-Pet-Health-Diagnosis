@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnosis History</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f8f9fa; 
+            text-align: center; 
+        }
+        .container { 
+            max-width: 800px; 
+            margin: 50px auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 { color: #28a745; }
+        .history-item { 
+            background: #e9ecef; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+            text-align: left; 
+        }
+        .footer { 
+            margin-top: 20px; 
+            font-size: 14px; 
+            color: #6c757d; 
+        }
+        button {
+            padding: 12px;
+            font-size: 18px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📜 Diagnosis History</h1>/
+        {% if diagnoses %}
+            {% for diagnosis in diagnoses %}
+                <div class="history-item">
+                    <strong>Symptoms:</strong> {{ diagnosis[0] }}<br>
+                    <strong>Diagnosis:</strong> {{ diagnosis[1] }}<br>
+                    <strong>Date:</strong> {{ diagnosis[2] }}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No past diagnoses found.</p>
+        {% endif %}
+        <br>
+        <button onclick="window.location.href='/'">⬅️ Back to Diagnosis</button>
+    </div>
+    <div class="footer">Powered by AI • Always consult a vet for professional advice</div>
+</body>
+</html>

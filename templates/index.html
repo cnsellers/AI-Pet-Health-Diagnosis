@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Pet Health Diagnosis</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f8f9fa; 
+            text-align: center; 
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 50px auto; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 { 
+            color: #28a745; 
+        }
+        textarea, input[type="file"] { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 10px 0; 
+            border: 1px solid #ced4da; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            transition: all 0.3s ease;
+        }
+        textarea:focus, input[type="file"]:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
+        }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            font-size: 18px; 
+            background: #28a745; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover { 
+            background: #218838; 
+            transform: scale(1.05);
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        pre { 
+            background: #e9ecef; 
+            padding: 15px; 
+            border-radius: 5px; 
+            text-align: left; 
+            white-space: pre-wrap; 
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #6c757d;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards 0.3s;
+        }
+    </style>
+    <script>
+        function diagnosePet() {
+            let diagnosisBox = document.getElementById("diagnosis");
+            diagnosisBox.style.opacity = "0";
+            diagnosisBox.style.transform = "translateY(10px)";
+            
+            let formData = new FormData();
+            formData.append("symptoms", document.getElementById("symptomsInput").value);
+            let imageFile = document.getElementById("imageInput").files[0];
+            if (imageFile) {
+                formData.append("image", imageFile);
+            }
+            
+            fetch("/diagnose", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                diagnosisBox.innerText = data.diagnosis || data.error || "Error retrieving diagnosis.";
+                diagnosisBox.style.opacity = "1";
+                diagnosisBox.style.transform = "translateY(0)";
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>🐾 AI Pet Health Diagnosis</h1>
+        <p>Describe your pet’s symptoms or upload an image for analysis.</p>
+        <textarea id="symptomsInput" placeholder="Enter pet symptoms..."></textarea>
+        <input type="file" id="imageInput" accept="image/*">
+        <button onclick="diagnosePet()">Get Diagnosis</button>
+        <h2>Diagnosis:</h2>
+        <pre id="diagnosis">Awaiting input...</pre>
+        <button onclick="window.location.href='/history'" style="margin-top: 15px; background: #007bff;">📜 View Past Diagnoses</button>
+    </div>
+    <div class="footer">Powered by AI • Always consult a vet for professional advice</div>
+</body>
+</html>

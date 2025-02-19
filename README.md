@@ -30,3 +30,6 @@ This is an AI-powered web app that helps diagnose pet health issues using **Goog
 * SQLite – Stores past diagnoses
 * JavaScript, HTML, CSS – Frontend
 
+## 🎥 Demo Video
+📺[Watch the Demo Here](https://youtu.be/jzBMnp8bgBI?si=K3mmADje7ezQqO3W)
+

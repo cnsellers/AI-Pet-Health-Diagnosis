@@ -24,3 +24,9 @@ This is an AI-powered web app that helps diagnose pet health issues using **Goog
 1. Run the Flask server: python app.py
 2. Open your browser and go to: [http://127.0.0.1:5000/](https://ai.google.dev/)
 
+## 🛠️ Technologies Used
+* Flask – Backend API
+* Google Gemini AI – AI-powered diagnosis
+* SQLite – Stores past diagnoses
+* JavaScript, HTML, CSS – Frontend
+
